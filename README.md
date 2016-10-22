@@ -1,7 +1,8 @@
 # yii2-echarts
 This is the Yii2 widgets for echarts.
+![Echarts](http://echarts.baidu.com/images/logo.png)
 
-![Echarts](http://echarts.baidu.com/images/logo.png)You can get detail of echarts  from [echarts official website](http://echarts.baidu.com/) :)
+You can get detail of echarts  from [echarts official website](http://echarts.baidu.com/) :)
 
 ## 安装 (Installation):
 
