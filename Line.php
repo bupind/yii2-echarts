@@ -56,7 +56,7 @@ class Line extends Echarts {
             "xAxis" => ['type' =>  'category','boundaryGap'=>false, 'data'=> $this->axis ],
             "yAxis" => [ ['name' => $this->unit, 'type'=>'value']],
             "legend" => ['data' =>  array_keys($this->data) ,'left'=>'left'],
-            "tooltip" => ['trigger' => 'item', 'formatter' => "{a}<br/>{b}: ({c}%)"],
+            "tooltip" => ['trigger' => 'item', 'formatter' => "{a}<br/>{b}: {c}"],
             "series" => $this->createSeriesData()
         ];
         if (!empty($this->backgroundColor)) {
