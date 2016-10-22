@@ -34,17 +34,17 @@ class Line extends Echarts {
         foreach ($this->data as $key=>$val) {
             $serie = ['name'=>$key,'type'=> 'line','data'=> $val['value']];
             if(isset($val['averageLine']) && true === $val['averageLine']){
-                $serie['markLine'] = ['data'=>['type'=>'average','name'=>'Average']];
+                $serie['markLine'] = ['data'=>[['type'=>'average','name'=>'Average']]];
             }
             $marks = [];
             if (isset($val['maxPoint']) && true === $val['maxPoint']) {
-                $marks = ['data' => ['type' => 'max', 'name' => 'Max']];
+                $marks[] = ['type' => 'max', 'name' => 'Max'];
             }
             if (isset($val['minPoint']) && true === $val['minPoint']) {
-                array_merge($marks, ['data' => ['type' => 'min', 'name' => 'Min']]);
+                $marks[] = ['type' => 'min', 'name' => 'Min'];
             }
             if (!empty($marks))
-                $serie['markPoint'] = $marks;
+                $serie['markPoint'] = ['data' => $marks];
             $series[] = $serie;
         }
         return $series;

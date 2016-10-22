@@ -7,7 +7,7 @@ You can get detail of echarts  from [echarts official website](http://echarts.ba
 ## 安装 (Installation):
 
 ```
-$ composer require "peterziv/yii2-echarts"
+$ composer require "peterziv/yii2-echarts:dev-master"
 ```
 
 
