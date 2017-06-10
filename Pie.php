@@ -1,6 +1,6 @@
 <?php
 /**
- * Echarts class file.
+ * Pie chart
  *
  * @author Peter <peter.ziv@hotmail.com>
  * @date Otc 22,2016
@@ -10,13 +10,17 @@
 namespace peterziv\echarts;
 
 /**
- * @see Highcharts
+ * @see Pie in echarts
  */
 class Pie extends Echarts
 {
     public $backgroundColor;
-    public $visualMap = [];
-    public $title;
+    public $visualMap = [
+        "show" => false,
+        "min" => 80,
+        "max" => 600,
+        "inRange" => ["colorLightness" => [0, 1]]];
+ public $title;
     /**
      * Pie chart data
      * @var array

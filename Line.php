@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Echarts class file.
+ * Line chart
  *
  * @author Peter <peter.ziv@hotmail.com>
  * @date Otc 22,2016
@@ -11,7 +11,7 @@
 namespace peterziv\echarts;
 
 /**
- * @see Highcharts
+ * @see Line in echarts
  */
 class Line extends Echarts {
 

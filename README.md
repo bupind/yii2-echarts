@@ -1,5 +1,5 @@
 # yii2-echarts
-This is the Yii2 widgets for echarts.
+This is the Yii2 widgets for echarts. You can use this widget to implement the all charts supported by echarts. Some quick class for Line,Pie and map implement.
 ![Echarts](http://echarts.baidu.com/images/logo.png)
 
 You can get detail of echarts  from [echarts official website](http://echarts.baidu.com/) :)

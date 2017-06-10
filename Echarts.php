@@ -22,7 +22,7 @@ use yii\web\View;
  *
  * To use this widget, you can insert the following code in a view:
  * ```php
- * echo \peterziv\echarts\Echarts::widget([
+ * echo Echarts::widget([
  *                 'responsive' => true,
  *                 'htmlOptions'=>['style' => 'height: 400px;'],
  *                 'options' => [
@@ -113,7 +113,7 @@ class Echarts extends Widget
 {
 
     protected $constr = 'Chart';
-    protected $baseScript = 'echarts';
+    protected $baseScript = 'echarts.common.min';
     public $options = [];
     public $htmlOptions = [];
     /**
