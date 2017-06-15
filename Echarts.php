@@ -19,88 +19,12 @@ use yii\helpers\Json;
 use yii\web\View;
 
 /**
- * Echarts encapsulates the {@link http://echarts.baidu.com Echarts}<br/>
- * charting library's Chart object.<br/>
- * To use this widget, you can insert the following code in a view:<p>
- * echo Echarts::widget([
- *                 'responsive' => true,
- *                 'htmlOptions'=>['style' => 'height: 400px;'],
- *                 'options' => [
- *                     'title' => [
- *                         'text' => '折线图堆�?'
- *                     ],
- *                     'tooltip' => [
- *                         'trigger' => 'axis'
- *                     ],
- *                     'legend' => [
- *                         'data' => ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
- *                     ],
- *                     'grid' => [
- *                         'left' => '3%',
- *                         'right' => '4%',
- *                         'bottom' => '3%',
- *                         'containLabel' => true
- *                     ],
- *                     'toolbox' => [
- *                         'feature' => [
- *                             'saveAsImage' => []
- *                         ]
- *                     ],
- *                     'xAxis' => [
- *                         'name' => '日期',
- *                         'type' => 'category',
- *                         'boundaryGap' => false,
- *                         'data' => ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
- *                     ],
- *                     'yAxis' => [
- *                         'type' => 'value'
- *                     ],
- *                     'series' => [
- *                         [
- *                             'name' => '邮件营销',
- *                             'type' => 'line',
- *                             'stack' => '总量',
- *                             'data' => [120, 132, 101, 134, 90, 230, 210]
- *                         ],
- *                         [
- *                             'name' => '联盟广告',
- *                             'type' => 'line',
- *                             'stack' => '总量',
- *                             'data' => [220, 182, 191, 234, 290, 330, 310]
- *                         ],
- *                         [
- *                             'name' => '视频广告',
- *                             'type' => 'line',
- *                             'stack' => '总量',
- *                             'data' => [150, 232, 201, 154, 190, 330, 410]
- *                         ],
- *                         [
- *                             'name' => '直接访问',
- *                             'type' => 'line',
- *                             'stack' => '总量',
- *                             'data' => [320, 332, 301, 334, 390, 330, 320]
- *                         ],
- *                         [
- *                             'name' => '搜索引擎',
- *                             'type' => 'line',
- *                             'stack' => '总量',
- *                             'data' => [820, 932, 901, 934, 1290, 1330, 1320]
- *                         ]
- *                     ]
- *                 ],
- *                 'events' => [
- *                     'click' => [
- *                         new JsExpression('function (params) {console.log(params)}'),
- *                         new JsExpression('function (params) {console.log("ok")}')
- *                     ],
- *                     'legendselectchanged' => new JsExpression('function (params) {console.log(params.selected)}')
- *                 ],
- *             ]);
- * </p><p>
+ * Echarts encapsulates the {@link http://echarts.baidu.com Echarts} charting library's Chart object.<p>
  * By configuring the {@link $options} property, you may specify the options
  * that need to be passed to the Echarts JavaScript object. Please refer to
  * the demo gallery and documentation on the {@link http://echarts.baidu.com
  * Echarts website} for possible options.</p>
+ * @see http://echarts.baidu.com/examples.html
  */
 class Echarts extends Widget
 {
@@ -121,7 +45,13 @@ class Echarts extends Widget
      */
     public $events = [];
 
-    public $scripts = [];
+    /**
+     *
+     * @var string <p>additional js script before the chart drawing.</p>
+     */
+    public $addtionalJsBefore = '';
+
+//    public $scripts = [];
 
     /**
      * @var boolean whether resize the chart when the container size is changed.
@@ -148,13 +78,16 @@ class Echarts extends Widget
         // merge options with default values
         $defaultOptions = ['chart' => ['createdby' => 'peter.ziv']];
         $this->options = ArrayHelper::merge($defaultOptions, $this->options);
-        array_unshift($this->scripts, $this->baseScript);
+//        array_unshift($this->scripts, $this->baseScript);
 
         $this->registerAssets();
 
         parent::run();
     }
 
+    /**
+     * override initiate for options parameter
+     */
     protected function initOptions()
     {
         // check if options parameter is a json string
@@ -172,11 +105,12 @@ class Echarts extends Widget
         EchartsAsset::register($this->view);
 
         //get the element in the page
+        $js = $this->addtionalJsBefore;
         $client = "echarts_{$this->id}";
         if ($this->theme) {
-            $js = "var {$client} = echarts.init(document.getElementById('{$this->id}'), " . $this->quote($this->theme) . ");";
+            $js .= "var {$client} = echarts.init(document.getElementById('{$this->id}'), " . $this->quote($this->theme) . ");";
         } else {
-            $js = "var {$client} = echarts.init(document.getElementById('{$this->id}'));";
+            $js .= "var {$client} = echarts.init(document.getElementById('{$this->id}'));";
         }
         $option = is_array($this->options) ? Json::encode($this->options) : $this->options;
         $js .= "{$client}.setOption({$option});";

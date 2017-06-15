@@ -19,7 +19,8 @@ class EchartsAsset extends AssetBundle
 
     public $sourcePath = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
     public $js = [
-        'echarts.common.min.js',
+        'echarts.min.js',
+        'china.js'
     ];
 
 }

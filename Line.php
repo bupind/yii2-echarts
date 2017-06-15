@@ -13,7 +13,8 @@
 namespace peterziv\echarts;
 
 /**
- * @see Line in echarts
+ * Implement for Line chart based on Echarts
+ * @see http://echarts.baidu.com/examples.html
  */
 class Line extends Echarts
 {
@@ -49,17 +50,12 @@ class Line extends Echarts
     {
         $series = [];
         foreach ($this->data as $key=>$val) {
-            $serie = ['name'=>$key,'type'=> 'line','data'=> $val['value']];
-            if (array_key_exists('averageLine', $val) && true === $val['averageLine']) {
-                $serie['markLine'] = ['data' => [
-                            ['type' => 'average', 'name' => 'Average']
-                ]];
-            }
-            $marks = [];
-            $this->setMarks($marks, $val, 'minPoint');
-            $this->setMarks($marks, $val, 'maxPoint');
-            if (!empty($marks)) {
-                $serie['markPoint'] = ['data' => $marks];
+            $serie = ['name' => $key, 'type' => 'line', 'data' => $val['value']];
+            foreach ($val as $key => $value) {
+                if (!$value) {
+                    continue;
+                }
+                $this->setMarks($serie, $key);
             }
             $series[] = $serie;
         }
@@ -68,21 +64,23 @@ class Line extends Echarts
 
     /**
      * set the max/min point
-     * @param array $marks <p>The marks data for chart</p>
-     * @param array $var <p>the input infomration</p>
+     * @param array $serie <p>The marks data for chart</p>
      * @param array $type <p>Only support minPoint and maxPoint now.</p>
      */
-    private function setMarks(&$marks, $var, $type)
+    private function setMarks(&$serie, $type)
     {
-        if (array_key_exists($type, $var) && true === $var[$type]) {
-            switch ($type) {
-                case 'minPoint':
-                    $marks[] = ['type' => 'min', 'name' => 'Min'];
-                    break;
-                case 'maxPoint':
-                    $marks[] = ['type' => 'max', 'name' => 'Max'];
-                    break;
-            }
+        switch ($type) {
+            case 'averageLine':
+                $serie['markLine'] = ['data' => [
+                            ['type' => 'average', 'name' => 'Average']
+                ]];
+                break;
+            case 'minPoint':
+                $serie['markPoint']['data'][] = ['type' => 'min', 'name' => 'Min'];
+                break;
+            case 'maxPoint':
+                $serie['markPoint']['data'][] = ['type' => 'max', 'name' => 'Max'];
+                break;
         }
     }
 
