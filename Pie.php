@@ -1,10 +1,13 @@
 <?php
+
 /**
  * Pie chart
  *
- * @author Peter <peter.ziv@hotmail.com>
- * @date Otc 22,2016
+ * @author  Peter <peter.ziv@hotmail.com>
+ * @date    Otc 22,2016
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ * @link    https://github.com/peterziv/yii2-echarts
+ * @package peterziv\echarts
  */
 
 namespace peterziv\echarts;
@@ -14,20 +17,25 @@ namespace peterziv\echarts;
  */
 class Pie extends Echarts
 {
+
     public $backgroundColor;
     public $visualMap = [
         "show" => false,
         "min" => 80,
         "max" => 600,
         "inRange" => ["colorLightness" => [0, 1]]];
- public $title;
+    public $title;
+
     /**
      * Pie chart data
-     * @var array
-     * @example ['n1'=>['value'=>11.1],'n2'=>['value'=>22.2]]
+     * @var array <p>['n1'=>['value'=>11.1],'n2'=>['value'=>22.2]]</p>
      */
     public $data = [];
-    
+
+    /**
+     * create series data from input parameters
+     * @return array <p>return the series data from input parameters</p>
+     */
     private function createSeriesData(){
         $data = [];
         foreach ($this->data as $key => $val) {
@@ -44,6 +52,10 @@ class Pie extends Echarts
             "data"=>  $data
         ]];
     }
+
+    /**
+     * override initiate for options parameter
+     */
     protected function initOptions(){
         $this->options = [
             "title"=> ['text'=>  $this->title,'left'=>'center','top'=>20],
@@ -56,4 +68,5 @@ class Pie extends Echarts
         }
         parent::initOptions();
     }
+
 }

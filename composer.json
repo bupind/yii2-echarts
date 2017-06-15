@@ -2,7 +2,7 @@
     "name": "peterziv/yii2-echarts",
     "version": "1.0",
     "description": "Chart widgets for Yii2",
-    "type": "library",
+    "type": "yii2-extension",
     "keywords": ["yii2","extension","widget","chart"],
     "license": "MIT",
     "authors": [
@@ -11,6 +11,10 @@
             "email": "peter.ziv@hotmail.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/peterziv/yii2-echarts/issues",
+        "source": "https://github.com/peterziv/yii2-echarts"
+    },
     "autoload": {
       "psr-4": { "peterziv\\echarts\\": "" }
     }

@@ -1,11 +1,13 @@
 <?php
 
 /**
- * Echarts class file.
+ * Echarts.
  *
  * @author Peter <peter.ziv@hotmail.com>
  * @date Otc 22,2016
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
+ * @link https://github.com/peterziv/yii2-echarts
+ * @package peterziv\echarts
  */
 
 namespace peterziv\echarts;
@@ -17,11 +19,9 @@ use yii\helpers\Json;
 use yii\web\View;
 
 /**
- * Echarts encapsulates the {@link http://echarts.baidu.com Echarts}
- * charting library's Chart object.
- *
- * To use this widget, you can insert the following code in a view:
- * ```php
+ * Echarts encapsulates the {@link http://echarts.baidu.com Echarts}<br/>
+ * charting library's Chart object.<br/>
+ * To use this widget, you can insert the following code in a view:<p>
  * echo Echarts::widget([
  *                 'responsive' => true,
  *                 'htmlOptions'=>['style' => 'height: 400px;'],
@@ -96,18 +96,11 @@ use yii\web\View;
  *                     'legendselectchanged' => new JsExpression('function (params) {console.log(params.selected)}')
  *                 ],
  *             ]);
- * 
- * ```
- *
+ * </p><p>
  * By configuring the {@link $options} property, you may specify the options
  * that need to be passed to the Echarts JavaScript object. Please refer to
  * the demo gallery and documentation on the {@link http://echarts.baidu.com
- * Echarts website} for possible options.
- *
- * Note: You do not need to specify the <code>chart->renderTo</code> option as
- * is shown in many of the examples on the Highcharts website. This value is
- * automatically populated with the id of the widget's container element. If you
- * wish to use a different container, feel free to specify a custom value.
+ * Echarts website} for possible options.</p>
  */
 class Echarts extends Widget
 {
@@ -122,12 +115,14 @@ class Echarts extends Widget
     public $theme;
 
     /**
-     * @var array the attached event handlers for the echarts plugin (event name => handlers)
+     * @var array <p>
+     * the attached event handlers for the echarts plugin (event name => handlers)
+     * </p>
      */
     public $events = [];
-    
+
     public $scripts = [];
-    
+
     /**
      * @var boolean whether resize the chart when the container size is changed.
      */
@@ -159,8 +154,9 @@ class Echarts extends Widget
 
         parent::run();
     }
-    
-    protected function initOptions(){
+
+    protected function initOptions()
+    {
         // check if options parameter is a json string
         if (is_string($this->options)) {
             $this->options = Json::decode($this->options);
@@ -175,7 +171,7 @@ class Echarts extends Widget
         // register the necessary script files
         EchartsAsset::register($this->view);
 
-        // 
+        //get the element in the page
         $client = "echarts_{$this->id}";
         if ($this->theme) {
             $js = "var {$client} = echarts.init(document.getElementById('{$this->id}'), " . $this->quote($this->theme) . ");";
@@ -200,11 +196,11 @@ class Echarts extends Widget
 
     /**
      * Quotes a string for use in JavaScript.
-     *
-     * @param string $string
-     * @return string the quoted string
+     * @param string $str <p>The string to be escaped.</p>
+     * @return string <p>The quoted string.</p>
      */
-    private function quote($string) {
-        return "'" . addcslashes($string, "'") . "'";
+    private function quote($str)
+    {
+        return "'" . addcslashes($str, "'") . "'";
     }
 }
