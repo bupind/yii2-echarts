@@ -1,29 +1,35 @@
 <?php
 
 /**
- * Pie chart
+ * Echarts.
  *
- * @author  Peter <peter.ziv@hotmail.com>
- * @date    Otc 22,2016
+ * @author Peter <peter.ziv@hotmail.com>
+ * @date Otc 22,2016
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
- * @link    https://github.com/peterziv/yii2-echarts
+ * @link https://github.com/peterziv/yii2-echarts
  * @package peterziv\echarts
  */
 
 namespace peterziv\echarts;
 
 /**
- * @see Pie in echarts
+ * <p>Implement for Pie chart based on Echarts</p>
+ * @see http://echarts.baidu.com/examples.html
  */
 class Pie extends Echarts
 {
 
     public $backgroundColor;
     public $visualMap = [
-        "show" => false,
-        "min" => 80,
-        "max" => 600,
-        "inRange" => ["colorLightness" => [0, 1]]];
+        'show' => false,
+        'min' => 80,
+        'max' => 600
+    ];
+
+    /**
+     * The title of this chart
+     * @var string
+     */
     public $title;
 
     /**
@@ -31,6 +37,12 @@ class Pie extends Echarts
      * @var array <p>['n1'=>['value'=>11.1],'n2'=>['value'=>22.2]]</p>
      */
     public $data = [];
+
+    /**
+     * The color of pie, default is #c23531
+     * @var string
+     */
+    public $color = '#c23531';
 
     /**
      * create series data from input parameters
@@ -42,14 +54,20 @@ class Pie extends Echarts
             $data[] = ['name'=>$key,'value'=>  $val['value']];
         }
         return [[
-            "name"=>  $this->title,
-            "type"=> "pie",
-            "radius"=> "55%",
-            "roseType"=>"angle",
-            "label"=> ["normal"=> ["textStyle"=> ["color"=> "rgba(255, 0, 255, 0.3)"]]],
-            "labelLine" => ["normal" => ["lineStyle" => ["color" => "rgba(255, 0, 255, 0.3)"]]],
-            "itemStyle"=>["normal" => ["shadowBlur"=> 200,"shadowColor"=>"rgba(0, 0, 0, 0.5)"]],
-            "data"=>  $data
+            'name' => $this->title,
+            'type' => 'pie',
+            'radius' => '60%',
+            'center' => ['50%', '50%'],
+            'roseType' => 'radius',
+            'label' => ['normal' => ['textStyle' => ['color' => 'rgba(0, 0, 0, 0.8)']]],
+            'labelLine' => ['normal' => [
+                    'lineStyle' => ['color' => 'rgba(255, 0, 255, 0.3)'],
+                    'smooth' => 0.2,
+                    'length' => 10,
+                    'length2' => 20
+                ]],
+            'itemStyle' => ['normal' => ['color' => $this->color, 'shadowBlur' => 60, 'shadowColor' => 'rgba(255, 255, 0, 0.3)']],
+            'data' => $data
         ]];
     }
 
@@ -58,10 +76,10 @@ class Pie extends Echarts
      */
     protected function initOptions(){
         $this->options = [
-            "title"=> ['text'=>  $this->title,'left'=>'center','top'=>20],
-            "tooltip"=>['trigger'=>'item','formatter'=>"{b} ({d}%)"],
-            "visualMap"=>  $this->visualMap,
-            "series"=> $this->createSeriesData()
+            'title' => ['text' => $this->title, 'left' => 'center', 'top' => 20],
+            'tooltip' => ['trigger' => 'item', 'formatter' => '{b} ({d}%)'],
+            'visualMap' => $this->visualMap,
+            'series' => $this->createSeriesData()
         ];
         if (!empty($this->backgroundColor)){
             $this->options['backgroundColor'] = $this->backgroundColor;

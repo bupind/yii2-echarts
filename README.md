@@ -23,8 +23,7 @@ echo Pie::widget([
     'visualMap' => [
     	"show" => false,
     	"min" => 80,
-    	"max" => 600,
-    	"inRange" => ["colorLightness" => [0, 1]]
+    	"max" => 600
     ],
 	'data' => $pieData
 ]);
